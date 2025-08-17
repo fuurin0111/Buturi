@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mechanics Lab v0.2</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest">
+</head>
+<body>
+  <div id="app">
+    <div id="menubar">
+      <div class="menu-group">
+        <button class="menu" id="menuTemplates">Templates ▾</button>
+        <div class="dropdown" id="templatesDropdown" hidden>
+          <button data-template="freefall">Free Fall</button>
+          <button data-template="projectile">Projectile</button>
+          <button data-template="collision">Collisions</button>
+          <button data-template="shm">Spring SHM</button>
+        </div>
+      </div>
+      <div class="menu-group">
+        <button class="menu" id="menuExport">Export ▾</button>
+        <div class="dropdown" id="exportDropdown" hidden>
+          <button id="exportCSV">CSV (graphs)</button>
+          <button id="exportScene">JSON (scene)</button>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+      </select>
+    </div>
+
+    <div id="toolbar">
+      <button id="playPause" title="Space">▶️/⏸</button>
+      <button id="reset" title="Ctrl+R">⟲</button>
+      <label>Speed
+        <select id="speed">
+          <option>0.25x</option><option>0.5x</option><option selected>1x</option><option>2x</option><option>4x</option><option>8x</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="gridToggle" checked/> Grid</label>
+      <label>Drag
+        <select id="dragMode">
+          <option value="off">Off</option>
+          <option value="linear">Linear</option>
+          <option value="quadratic">Quadratic</option>
+        </select>
+      </label>
+      <label>g
+        <input id="gravity" type="number" step="0.01" value="9.81" style="width:6rem;"> m/s²
+      </label>
+      <label><input type="checkbox" id="vectorsToggle" checked/> Vectors</label>
+      <label><input type="checkbox" id="trailsToggle" checked/> Trails</label>
+      <label>Trail rate <input id="trailRate" type="range" min="1" max="30" value="10"></label>
+      <div id="timeDisplay">t = 0.00 s</div>
+    </div>
+
+    <div id="main">
+      <div id="palette"></div>
+      <div id="canvasWrap">
+        <canvas id="world" width="1200" height="800"></canvas>
+        <div id="zoomHud">100%</div>
+      </div>
+      <div id="props"></div>
+    </div>
+
+    <div id="graphs" class="">
+      <div class="graphs-header">
+        <div class="tabs">
+          <button class="tab active" data-tab="energy">Energy</button>
+          <button class="tab" data-tab="position">Position</button>
+          <button class="tab" data-tab="velocity">Velocity</button>
+        </div>
+        <div class="spacer"></div>
+        <button id="toggleGraphs">▼</button>
+      </div>
+      <div class="graph-wrap" data-tab="energy">
+        <canvas id="graphEnergy" height="220"></canvas>
+      </div>
+      <div class="graph-wrap hidden" data-tab="position">
+        <canvas id="graphPos" height="220"></canvas>
+      </div>
+      <div class="graph-wrap hidden" data-tab="velocity">
+        <canvas id="graphVel" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/matter-js@0.19.0/build/matter.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+  </script>
+</body>
+</html>

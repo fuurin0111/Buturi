@@ -1,0 +1,9 @@
+{
+  "name": "Mechanics Lab v0.2",
+  "short_name": "MechLab",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#101418",
+  "theme_color": "#171c22",
+  "icons": []
+}
